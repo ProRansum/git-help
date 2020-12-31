@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<title>Git Help</title>
+
+    	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="src/style.css">
+
+    	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <style media="screen">
+        	body {
+        		font-family: Arial, Helvetica, sans-serif;
+        	}
+        	table {
+        		font-size: 1em;
+        	}
+        	.ui-draggable,
+        	.ui-droppable {
+        		background-position: top;
+        	}
+            fieldset {
+              border: 0;
+            }
+            label {
+              display: block;
+
+            }
+            .overflow {
+              height: 200px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Main Content -->
+
+
+        <script type="text/javascript">
+
+            function copied_dialog(t = 'none') {
+                var prompt = $('div.dialog');
+                if(!prompt.length) {
+                    prompt = $('<div>').addClass('dialog').appendTo($('body'));
+                }
+
+                prompt.html([
+                    $('<p>').text('Results Copied to Clipboard.'),
+                    $('<hr>'),
+                    $('<pre>').append([
+                        $('<code>').text(t)
+                    ])
+                ]);
+
+                prompt.dialog({
+                	dialogClass: "no-close",
+                    title: "Results Copied!",
+                    width: '80%',
+                	buttons: [{
+                		text: "OK",
+                		click: function(btn) {
+                			$(this).dialog("close");
+                            $(this).remove();
+                		}
+                	}]
+                });
+
+                return prompt.parent().find('.ui-dialog-titlebar-close').click(function() {
+                    $(this).parents().eq(1)
+                });
+            }
+
+            (function() {
+                this.copy = function(t) {
+                    var $temp = $("<textarea>").appendTo($("body")).val(t);
+
+                    $temp.select();
+                    $temp[0].setSelectionRange(0, 99999);
+
+                    document.execCommand("copy");
+                    $temp.remove();
+                }
+
+            })();
+        </script>
+    </body>
+
+</html>
